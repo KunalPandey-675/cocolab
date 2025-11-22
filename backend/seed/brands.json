@@ -1,0 +1,42 @@
+[
+  {
+    "name": "PixelWave Electronics",
+    "role": "brand",
+    "email": "collabs@pixelwave.com",
+    "password": "brand123",
+    "industry": "Consumer Electronics",
+    "location": "Bengaluru, India",
+    "credits": 10,
+    "unlockedCreators": []
+  },
+  {
+    "name": "UrbanThread Apparel",
+    "role": "brand",
+    "email": "marketing@urbanthread.in",
+    "password": "brand123",
+    "industry": "Fashion",
+    "location": "Mumbai, India",
+    "credits": 5,
+    "unlockedCreators": []
+  },
+  {
+    "name": "FitFuel Nutrition",
+    "role": "brand",
+    "email": "influencers@fitfuel.com",
+    "password": "brand123",
+    "industry": "Health & Fitness",
+    "location": "New Delhi, India",
+    "credits": 8,
+    "unlockedCreators": []
+  },
+  {
+    "name": "TasteTrail Foods",
+    "role": "brand",
+    "email": "partners@tastetrail.in",
+    "password": "brand123",
+    "industry": "Food & Beverage",
+    "location": "Delhi NCR, India",
+    "credits": 3,
+    "unlockedCreators": []
+  }
+]

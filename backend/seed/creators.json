@@ -1,0 +1,207 @@
+[
+  {
+    "name": "Aarav Mehta",
+    "role": "creator",
+    "email": "aarav.mehta.influencer@example.com",
+    "password": "password123",
+    "phone": "+91-9876543210",
+    "niche": "Tech",
+    "location": "Bengaluru, India",
+    "bio": "Tech content creator helping Gen-Z discover gadgets, apps, and productivity hacks.",
+    "platforms": [
+      {
+        "name": "instagram",
+        "handle": "@aarav.tech",
+        "followers": 85000,
+        "avgViews": 32000,
+        "engagementRate": 5.2
+      },
+      {
+        "name": "youtube",
+        "handle": "AaravTech",
+        "followers": 42000,
+        "avgViews": 28000,
+        "engagementRate": 4.1
+      }
+    ],
+    "audience": {
+      "topCountry": "India",
+      "ageBrackets": {
+        "18-24": 55,
+        "25-34": 30,
+        "35-44": 10
+      },
+      "genderSplit": {
+        "male": 70,
+        "female": 30
+      }
+    },
+    "tier": "Growth",
+    "isBoosted": true,
+    "profileViews": 47
+  },
+  {
+    "name": "Sara Khan",
+    "role": "creator",
+    "email": "sara.khan.style@example.com",
+    "password": "password123",
+    "phone": "+91-9123456780",
+    "niche": "Fashion",
+    "location": "Mumbai, India",
+    "bio": "Affordable fashion, styling tips, and streetwear inspiration for students.",
+    "platforms": [
+      {
+        "name": "instagram",
+        "handle": "@sara.styles",
+        "followers": 120000,
+        "avgViews": 60000,
+        "engagementRate": 6.0
+      },
+      {
+        "name": "tiktok",
+        "handle": "@sara.styles",
+        "followers": 95000,
+        "avgViews": 50000,
+        "engagementRate": 7.5
+      }
+    ],
+    "audience": {
+      "topCountry": "India",
+      "ageBrackets": {
+        "18-24": 65,
+        "25-34": 25,
+        "35-44": 5
+      },
+      "genderSplit": {
+        "male": 20,
+        "female": 80
+      }
+    },
+    "tier": "Established",
+    "isBoosted": false,
+    "profileViews": 73
+  },
+  {
+    "name": "Rohan Verma",
+    "role": "creator",
+    "email": "rohan.fitness@example.com",
+    "password": "password123",
+    "phone": "+91-9012345678",
+    "niche": "Fitness",
+    "location": "New Delhi, India",
+    "bio": "Weekend warrior helping busy professionals stay fit with 20-minute home workouts.",
+    "platforms": [
+      {
+        "name": "instagram",
+        "handle": "@rohan.fit",
+        "followers": 38000,
+        "avgViews": 12000,
+        "engagementRate": 4.8
+      },
+      {
+        "name": "youtube",
+        "handle": "RohanFit",
+        "followers": 22000,
+        "avgViews": 15000,
+        "engagementRate": 4.3
+      }
+    ],
+    "audience": {
+      "topCountry": "India",
+      "ageBrackets": {
+        "18-24": 40,
+        "25-34": 45,
+        "35-44": 10
+      },
+      "genderSplit": {
+        "male": 60,
+        "female": 40
+      }
+    },
+    "tier": "Rising",
+    "isBoosted": true,
+    "profileViews": 29
+  },
+  {
+    "name": "Ananya Sharma",
+    "role": "creator",
+    "email": "ananya.foodie@example.com",
+    "password": "password123",
+    "phone": "+91-9988776655",
+    "niche": "Food",
+    "location": "Delhi NCR, India",
+    "bio": "Exploring underrated food spots and budget-friendly eats across NCR.",
+    "platforms": [
+      {
+        "name": "instagram",
+        "handle": "@ananya.eats",
+        "followers": 52000,
+        "avgViews": 18000,
+        "engagementRate": 5.6
+      },
+      {
+        "name": "tiktok",
+        "handle": "@ananya.eats",
+        "followers": 61000,
+        "avgViews": 21000,
+        "engagementRate": 6.2
+      }
+    ],
+    "audience": {
+      "topCountry": "India",
+      "ageBrackets": {
+        "18-24": 50,
+        "25-34": 35,
+        "35-44": 8
+      },
+      "genderSplit": {
+        "male": 45,
+        "female": 55
+      }
+    },
+    "tier": "Growth",
+    "isBoosted": false,
+    "profileViews": 34
+  },
+  {
+    "name": "Kabir Singh",
+    "role": "creator",
+    "email": "kabir.travel@example.com",
+    "password": "password123",
+    "phone": "+91-9090909090",
+    "niche": "Travel",
+    "location": "Jaipur, India",
+    "bio": "Backpacking India on a budget and documenting offbeat routes.",
+    "platforms": [
+      {
+        "name": "instagram",
+        "handle": "@kabir.travels",
+        "followers": 27000,
+        "avgViews": 9000,
+        "engagementRate": 5.0
+      },
+      {
+        "name": "youtube",
+        "handle": "KabirTravels",
+        "followers": 18000,
+        "avgViews": 11000,
+        "engagementRate": 4.7
+      }
+    ],
+    "audience": {
+      "topCountry": "India",
+      "ageBrackets": {
+        "18-24": 42,
+        "25-34": 40,
+        "35-44": 10
+      },
+      "genderSplit": {
+        "male": 55,
+        "female": 45
+      }
+    },
+    "tier": "Rising",
+    "isBoosted": false,
+    "profileViews": 18
+  }
+]
