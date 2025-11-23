@@ -10,7 +10,7 @@ const Navbar = () => {
         <div className="flex justify-between h-16 items-center">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg"></div>
-            <span className="text-xl font-bold text-gray-900">InfluencerConnect</span>
+            <span className="text-xl font-bold text-gray-900">Cocolab</span>
           </Link>
 
           <div className="flex items-center space-x-6">

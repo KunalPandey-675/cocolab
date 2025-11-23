@@ -1,6 +1,6 @@
-# InfluencerConnect – Two-Sided Influencer Marketplace
+# Cocolab – Two-Sided Influencer Marketplace
 
-InfluencerConnect is a **privacy-first, two-sided marketplace** that connects **brands** with **vetted creators** for influencer marketing campaigns. The platform features **data-driven discovery**, **credit-based contact unlocking**, and **visibility boosts** for creators.
+Cocolab is a **privacy-first, two-sided marketplace** that connects **brands** with **vetted creators** for influencer marketing campaigns. The platform features **data-driven discovery**, **credit-based contact unlocking**, and **visibility boosts** for creators.
 
 ## 🚀 Tech Stack
 
@@ -127,7 +127,7 @@ cp .env.example .env
 
 Edit `.env` and add your MongoDB connection string:
 ```env
-MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/influencerconnect?retryWrites=true&w=majority
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/Cocolab?retryWrites=true&w=majority
 PORT=5000
 ```
 
@@ -318,7 +318,7 @@ MIT License - Free to use for learning and commercial projects.
 
 ## 🎉 You're All Set!
 
-Start the backend server (`npm run dev` in `/backend`), start the frontend (`npm run dev` in `/client`), and open `http://localhost:3000` to see InfluencerConnect in action!
+Start the backend server (`npm run dev` in `/backend`), start the frontend (`npm run dev` in `/client`), and open `http://localhost:3000` to see Cocolab in action!
 
 **Questions or issues?** Check the console logs or verify your MongoDB connection string.
 

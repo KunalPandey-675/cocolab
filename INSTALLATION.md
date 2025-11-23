@@ -1,4 +1,4 @@
-# Installation Instructions for InfluencerConnect
+# Installation Instructions for Cocolab
 
 Follow these steps to get the project running on your local machine.
 
@@ -26,11 +26,11 @@ Before you begin, ensure you have the following installed:
 5. Choose "Connect your application"
 6. Copy the connection string (looks like: `mongodb+srv://username:password@cluster...`)
 7. Replace `<password>` with your actual password
-8. Replace `myFirstDatabase` with `influencerconnect`
+8. Replace `myFirstDatabase` with `Cocolab`
 
 Your final connection string should look like:
 ```
-mongodb+srv://myuser:mypassword@cluster0.xxxxx.mongodb.net/influencerconnect?retryWrites=true&w=majority
+mongodb+srv://myuser:mypassword@cluster0.xxxxx.mongodb.net/Cocolab?retryWrites=true&w=majority
 ```
 
 ---
@@ -54,7 +54,7 @@ Edit the `backend\.env` file and add your MongoDB URI:
 
 ```env
 PORT=5000
-MONGO_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@cluster.mongodb.net/influencerconnect?retryWrites=true&w=majority
+MONGO_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@cluster.mongodb.net/Cocolab?retryWrites=true&w=majority
 ```
 
 **Seed the database with sample data:**
@@ -121,7 +121,7 @@ Open your browser and go to:
 http://localhost:3000
 ```
 
-You should see the InfluencerConnect landing page!
+You should see the Cocolab landing page!
 
 ---
 

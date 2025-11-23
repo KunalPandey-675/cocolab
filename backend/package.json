@@ -1,7 +1,7 @@
 {
-  "name": "influencerconnect-backend",
+  "name": "Cocolab-backend",
   "version": "1.0.0",
-  "description": "Backend for InfluencerConnect marketplace",
+  "description": "Backend for Cocolab marketplace",
   "main": "server.js",
   "type": "module",
   "scripts": {

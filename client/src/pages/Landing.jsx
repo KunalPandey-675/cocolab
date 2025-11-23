@@ -19,12 +19,12 @@ const Landing = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/auth?role=brand">
                 <Button size="lg" className="w-full sm:w-auto">
-                  I'm a Brand 🏢
+                  I'm a Brand
                 </Button>
               </Link>
               <Link to="/auth?role=creator">
                 <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                  I'm a Creator 🎨
+                  I'm a Creator
                 </Button>
               </Link>
             </div>
@@ -225,11 +225,11 @@ const Landing = () => {
             Ready to Get Started?
           </h2>
           <p className="text-xl text-blue-100 mb-8">
-            Join thousands of brands and creators connecting through InfluencerConnect
+            Join thousands of brands and creators connecting through Cocolab
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/auth?signup=true&role=brand">
-              <Button size="lg" variant="secondary" className="w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white text-blue-600 border-white hover:bg-gray-100 ">
                 Sign Up as Brand
               </Button>
             </Link>

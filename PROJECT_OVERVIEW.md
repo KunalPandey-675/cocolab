@@ -1,6 +1,6 @@
-# InfluencerConnect Project Overview
+# Cocolab Project Overview
 
-## What is InfluencerConnect?
+## What is Cocolab?
 
 A two-sided marketplace connecting **brands** with **influencers/creators**. Key differentiator: **Privacy-first** approach where creator contact details are hidden until brands spend credits to unlock them.
 

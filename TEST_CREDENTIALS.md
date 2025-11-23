@@ -1,6 +1,6 @@
 # Test Credentials & Sample Data
 
-This file contains all test accounts and sample data for InfluencerConnect.
+This file contains all test accounts and sample data for Cocolab.
 
 ---
 
@@ -193,4 +193,4 @@ This will:
 
 ---
 
-**Ready to test?** Use these credentials to explore all features of InfluencerConnect! 🚀
+**Ready to test?** Use these credentials to explore all features of Cocolab! 🚀

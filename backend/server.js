@@ -23,7 +23,7 @@ app.use('/api/brands', brandRoutes);
 
 // Health check
 app.get('/', (req, res) => {
-  res.json({ message: 'InfluencerConnect API is running' });
+  res.json({ message: 'Cocolab API is running' });
 });
 
 // MongoDB connection

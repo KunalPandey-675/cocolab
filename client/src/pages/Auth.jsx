@@ -118,7 +118,7 @@ const Auth = () => {
             {isSignup ? 'Create Account' : 'Welcome Back'}
           </h1>
           <p className="text-gray-600">
-            {isSignup ? 'Join InfluencerConnect today' : 'Login to your account'}
+            {isSignup ? 'Join Cocolab today' : 'Login to your account'}
           </p>
         </div>
 

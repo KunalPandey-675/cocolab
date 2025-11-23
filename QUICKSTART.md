@@ -1,4 +1,4 @@
-# InfluencerConnect - Quick Start Guide
+# Cocolab - Quick Start Guide
 
 ## 🚀 Get Started in 5 Minutes
 
@@ -12,7 +12,7 @@ npm install
 1. Create a `.env` file in the `backend` folder
 2. Add your MongoDB connection string:
 ```
-MONGO_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@cluster.mongodb.net/influencerconnect
+MONGO_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@cluster.mongodb.net/Cocolab
 PORT=5000
 ```
 
