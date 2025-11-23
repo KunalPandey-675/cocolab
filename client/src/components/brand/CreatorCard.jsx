@@ -5,11 +5,11 @@ import Button from '../ui/Button';
 const CreatorCard = ({ creator, brandId, isUnlocked }) => {
   const getPlatformIcon = (platform) => {
     const icons = {
-      instagram: '📷',
-      youtube: '▶️',
-      tiktok: '🎵'
+      instagram: 'Instagram',
+      youtube: 'YouTube',
+      tiktok: 'TikTok'
     };
-    return icons[platform] || '🌐';
+    return icons[platform] || 'Website';
   };
 
   const maskContact = (contact) => {
@@ -36,56 +36,57 @@ const CreatorCard = ({ creator, brandId, isUnlocked }) => {
         )}
       </div>
 
-      {/* Niche & Tier */}
-      <div className="flex gap-2 mb-4 flex-wrap">
+      {/* Niche & Rating */}
+      <div className="flex gap-2 mb-3 flex-wrap">
         {Array.isArray(creator.niche) ? (
-          creator.niche.map((n, idx) => (
+          creator.niche.slice(0, 2).map((n, idx) => (
             <Badge key={idx} variant="primary">{n}</Badge>
           ))
         ) : (
           <Badge variant="primary">{creator.niche}</Badge>
         )}
-        <Badge variant={creator.tier === 'Established' ? 'success' : creator.tier === 'Growth' ? 'primary' : 'warning'}>
-          {creator.tier}
-        </Badge>
+        <Badge variant="success" className="text-xs">{creator.averageRating?.toFixed(1)}/5</Badge>
       </div>
 
       {/* Bio */}
       {creator.bio && (
-        <p className="text-sm text-gray-700 mb-4 line-clamp-2">{creator.bio}</p>
+        <p className="text-sm text-gray-700 mb-3 line-clamp-2">{creator.bio}</p>
       )}
 
       {/* Platforms */}
-      <div className="space-y-2 mb-4">
-        {creator.platforms?.slice(0, 2).map((platform, index) => (
-          <div key={index} className="flex items-center justify-between text-sm">
-            <span className="flex items-center gap-2">
-              <span>{getPlatformIcon(platform.name)}</span>
-              <span className="text-gray-700 capitalize">{platform.name}</span>
-            </span>
-            <div className="flex gap-4 text-gray-600">
-              <span>{(platform.followers / 1000).toFixed(1)}K followers</span>
-              <span className="text-green-600 font-medium">{platform.engagementRate}% eng.</span>
+      {creator.platforms && creator.platforms.length > 0 && (
+        <div className="space-y-2 mb-3">
+          {creator.platforms.slice(0, 2).map((platform, index) => (
+            <div key={index} className="flex items-center justify-between text-sm">
+              <span className="flex items-center gap-2">
+                <span className="font-semibold">{getPlatformIcon(platform.name)}</span>
+                <span className="text-gray-700">{(platform.followers / 1000).toFixed(1)}K</span>
+              </span>
+              <span className="text-green-600 font-medium text-xs">{platform.engagementRate}%</span>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      )}
+
+      {/* Quick Stats */}
+      <div className="bg-gray-50 rounded-md p-2 mb-3 text-xs text-gray-600 space-y-1">
+        {creator.tier && <div>Tier: <span className="font-semibold text-gray-900">{creator.tier}</span></div>}
+        {creator.averageRating && <div>Avg Rating: <span className="font-semibold text-gray-900">{creator.averageRating.toFixed(1)}/5</span></div>}
+        {creator.audience?.topCountry && <div>Region: <span className="font-semibold text-gray-900">{creator.audience.topCountry}</span></div>}
       </div>
 
-      {/* Contact Info (Blurred if not unlocked) */}
-      <div className="bg-gray-50 rounded-md p-3 mb-4">
-        <p className="text-xs text-gray-500 mb-2">Contact Information</p>
-        <div className="space-y-1">
-          <p className={`text-sm ${!isUnlocked ? 'blur-contact' : 'text-gray-900'}`}>
-            📧 {isUnlocked ? creator.email : maskContact(creator.email)}
-          </p>
-          <p className={`text-sm ${!isUnlocked ? 'blur-contact' : 'text-gray-900'}`}>
-            📞 {isUnlocked ? creator.phone : '+91-**********'}
-          </p>
+      {/* Contact Info */}
+      {isUnlocked ? (
+        <div className="bg-blue-50 rounded-md p-3 mb-4">
+          <p className="text-xs text-gray-600 font-semibold">Contact</p>
+          <p className="text-xs text-gray-900 mt-1">{creator.email}</p>
+          <p className="text-xs text-gray-900">{creator.phone}</p>
         </div>
-        {!isUnlocked && (
-          <p className="text-xs text-blue-600 mt-2">🔒 Use 1 credit to unlock</p>
-        )}
-      </div>
+      ) : (
+        <div className="bg-gray-100 rounded-md p-3 mb-4">
+          <p className="text-xs text-gray-600">Unlock to see contact info - 1 credit</p>
+        </div>
+      )}
 
       {/* View Profile Button */}
       <Link to={`/creator/${creator._id}`}>

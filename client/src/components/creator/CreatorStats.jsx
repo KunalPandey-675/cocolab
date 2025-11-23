@@ -3,11 +3,11 @@ import Badge from '../ui/Badge';
 const CreatorStats = ({ platforms, tier, profileViews }) => {
   const getPlatformIcon = (platform) => {
     const icons = {
-      instagram: '📷',
-      youtube: '▶️',
-      tiktok: '🎵'
+      instagram: 'Instagram',
+      youtube: 'YouTube',
+      tiktok: 'TikTok'
     };
-    return icons[platform] || '🌐';
+    return icons[platform] || 'Website';
   };
 
   return (

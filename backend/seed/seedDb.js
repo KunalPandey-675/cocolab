@@ -20,7 +20,7 @@ const seedDatabase = async () => {
     // Clear existing data
     await Creator.deleteMany({});
     await Brand.deleteMany({});
-    console.log('🗑️  Cleared existing data');
+    console.log('Cleared existing data');
 
     // Read seed data
     const creatorsData = JSON.parse(
@@ -37,7 +37,7 @@ const seedDatabase = async () => {
     await Brand.insertMany(brandsData);
     console.log('✅ Inserted brands');
 
-    console.log('🎉 Database seeded successfully!');
+    console.log('Database seeded successfully!');
     process.exit(0);
   } catch (error) {
     console.error('❌ Error seeding database:', error);

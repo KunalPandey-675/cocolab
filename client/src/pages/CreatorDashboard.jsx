@@ -72,7 +72,7 @@ const CreatorDashboard = () => {
                 </Badge>
               ) : (
                 <Button onClick={openBoostModal} variant="success">
-                  🚀 Boost Profile
+                  Boost Profile
                 </Button>
               )}
             </div>
@@ -148,7 +148,7 @@ const CreatorDashboard = () => {
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold text-gray-900">Recent Brand Views</h3>
               {!creator?.isBoosted && (
-                <Badge variant="warning">🔒 Boost to unlock</Badge>
+                <Badge variant="warning">Boost to unlock</Badge>
               )}
             </div>
             <div className="space-y-3">
@@ -181,7 +181,7 @@ const CreatorDashboard = () => {
             {!creator?.isBoosted && (
               <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <p className="text-sm text-yellow-800">
-                  <span className="font-semibold">💡 Boost your profile</span> to see which brands are viewing your profile and get priority placement in search results.
+                  <span className="font-semibold">Boost your profile</span> to see which brands are viewing your profile and get priority placement in search results.
                 </p>
                 <Button onClick={openBoostModal} size="sm" className="mt-2">
                   Boost Now
