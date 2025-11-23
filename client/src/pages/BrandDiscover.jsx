@@ -8,6 +8,7 @@ import { getBrandById } from '../api/brand';
 import Button from '../components/ui/Button';
 import CreatorCard from '../components/brand/CreatorCard';
 import CreatorFilters from '../components/brand/CreatorFilters';
+import NLPSearchBar from '../components/brand/NLPSearchBar';
 
 const BrandDiscover = () => {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ const BrandDiscover = () => {
   const { creators, setCreators, filters, setLoading, loading } = useBrandStore();
   const { openFilterModal } = useUIStore();
   const [unlockedCreatorIds, setUnlockedCreatorIds] = useState([]);
+  const [nlpResults, setNlpResults] = useState(null);
+  const [nlpLoading, setNlpLoading] = useState(false);
 
   useEffect(() => {
     if (role !== 'brand') {
@@ -49,6 +52,13 @@ const BrandDiscover = () => {
 
   const activeFilterCount = Object.values(filters).filter(v => v !== '').length;
 
+  const handleNLPSearchResults = (results) => {
+    if (results.creators) {
+      setNlpResults(results);
+      setCreators(results.creators);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,9 +66,40 @@ const BrandDiscover = () => {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Discover Creators</h1>
           <p className="text-gray-600">
-            Find the perfect creators for your brand using our advanced filters
+            Find the perfect creators for your brand using our AI-powered search and advanced filters
           </p>
         </div>
+
+        {/* NLP Search Bar */}
+        <NLPSearchBar
+          brandId={user.id}
+          onSearchResults={handleNLPSearchResults}
+          onLoading={setNlpLoading}
+        />
+
+        {/* AI Recommended Profiles */}
+        {nlpResults && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-blue-800 font-semibold">Recommended Profiles</p>
+                {nlpResults.recommendations && (
+                  <p className="text-xs text-blue-700 mt-1">{nlpResults.recommendations}</p>
+                )}
+              </div>
+              <button
+                onClick={() => {
+                  setNlpResults(null);
+                  setCreators([]);
+                  fetchCreators();
+                }}
+                className="text-xs text-blue-600 hover:text-blue-700 font-semibold"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Filter Bar */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-8">
@@ -75,7 +116,7 @@ const BrandDiscover = () => {
                   </span>
                 )}
               </Button>
-              
+
               {activeFilterCount > 0 && (
                 <div className="flex gap-2 flex-wrap">
                   {filters.platform && (
@@ -104,7 +145,7 @@ const BrandDiscover = () => {
         </div>
 
         {/* Creators Grid */}
-        {loading ? (
+        {loading || nlpLoading ? (
           <div className="text-center py-12">
             <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-gray-600">Loading creators...</p>

@@ -16,6 +16,7 @@ const CreatorProfile = () => {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [loading, setLoading] = useState(true);
   const [unlocking, setUnlocking] = useState(false);
+  const [selectedTab, setSelectedTab] = useState('overview');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +29,7 @@ const CreatorProfile = () => {
         if (role === 'brand' && user?.id) {
           const brandData = await getBrandById(user.id);
           setBrand(brandData);
-          
+
           // Check if already unlocked
           const unlocked = brandData.unlockedCreators.some(
             c => (c._id || c) === id
@@ -71,11 +72,11 @@ const CreatorProfile = () => {
 
   const getPlatformIcon = (platform) => {
     const icons = {
-      instagram: '📷',
-      youtube: '▶️',
-      tiktok: '🎵'
+      instagram: 'Instagram',
+      youtube: 'YouTube',
+      tiktok: 'TikTok'
     };
-    return icons[platform] || '🌐';
+    return icons[platform] || 'Website';
   };
 
   if (loading) {
@@ -123,9 +124,14 @@ const CreatorProfile = () => {
                   {creator.name.charAt(0)}
                 </div>
                 <div>
-                  <h1 className={`text-3xl font-bold text-gray-900 mb-2 ${role === 'brand' && !isUnlocked ? 'blur-contact' : ''}`}>
-                    {creator.name}
-                  </h1>
+                  <div className="flex items-center gap-2 mb-2">
+                    <h1 className={`text-3xl font-bold text-gray-900 ${role === 'brand' && !isUnlocked ? 'blur-contact' : ''}`}>
+                      {creator.name}
+                    </h1>
+                    {creator.isVerified && (
+                      <Badge variant="success" className="text-xs">Verified</Badge>
+                    )}
+                  </div>
                   <p className="text-gray-600">{creator.location}</p>
                 </div>
               </div>
@@ -141,12 +147,36 @@ const CreatorProfile = () => {
                 <Badge variant={creator.tier === 'Established' ? 'success' : creator.tier === 'Growth' ? 'primary' : 'warning'}>
                   {creator.tier} Creator
                 </Badge>
-                {creator.isBoosted && <Badge variant="boosted">✨ Boosted</Badge>}
+                {creator.isBoosted && <Badge variant="boosted">Boosted</Badge>}
               </div>
 
               {creator.bio && (
                 <p className="text-gray-700 leading-relaxed mb-4">{creator.bio}</p>
               )}
+
+              {/* Stats Row */}
+              <div className="flex gap-6 text-sm mb-4">
+                {creator.averageRating !== undefined && (
+                  <div>
+                    <span className="text-gray-600">Rating: </span>
+                    <span className="font-semibold text-gray-900">
+                      {creator.averageRating?.toFixed(1)}/5 ({Math.round(creator.averageRating)} stars)
+                    </span>
+                  </div>
+                )}
+                {creator.rate && (
+                  <div>
+                    <span className="text-gray-600">Rate: </span>
+                    <span className="font-semibold text-gray-900">${creator.rate}</span>
+                  </div>
+                )}
+                {creator.totalCollaborations !== undefined && (
+                  <div>
+                    <span className="text-gray-600">Collaborations: </span>
+                    <span className="font-semibold text-gray-900">{creator.totalCollaborations}</span>
+                  </div>
+                )}
+              </div>
 
               {/* Social Media Links */}
               {(creator.instagramLink || creator.youtubeLink) && (
@@ -158,7 +188,7 @@ const CreatorProfile = () => {
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md hover:from-purple-600 hover:to-pink-600 transition"
                     >
-                      📷 Instagram
+                      Instagram
                     </a>
                   )}
                   {creator.youtubeLink && (
@@ -177,123 +207,265 @@ const CreatorProfile = () => {
           </div>
         </Card>
 
-        {/* Platform Analytics */}
-        <Card className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Platform Analytics</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {creator.platforms?.map((platform, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-3xl">{getPlatformIcon(platform.name)}</span>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900 capitalize">{platform.name}</h3>
-                    <p className={`text-sm text-gray-600 ${role === 'brand' && !isUnlocked ? 'blur-contact' : ''}`}>
-                      {platform.handle}
-                    </p>
-                  </div>
-                </div>
+        {/* Tab Navigation */}
+        <div className="flex gap-2 mb-6 border-b border-gray-200 bg-white rounded-t-lg px-4">
+          {['overview', 'platforms', 'portfolio', 'testimonials'].map(tab => (
+            <button
+              key={tab}
+              onClick={() => setSelectedTab(tab)}
+              className={`px-4 py-3 font-medium transition capitalize ${selectedTab === tab
+                ? 'text-blue-600 border-b-2 border-blue-600'
+                : 'text-gray-600 hover:text-gray-900'
+                }`}
+            >
+              {tab === 'platforms' ? 'Social Media' : tab}
+            </button>
+          ))}
+        </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm text-gray-600 mb-1">Followers</p>
-                    <p className="text-2xl font-bold text-gray-900">
-                      {(platform.followers / 1000).toFixed(1)}K
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600 mb-1">Avg Views</p>
-                    <p className="text-2xl font-bold text-gray-900">
-                      {(platform.avgViews / 1000).toFixed(1)}K
-                    </p>
-                  </div>
-                  <div className="col-span-2">
-                    <p className="text-sm text-gray-600 mb-1">Engagement Rate</p>
-                    <div className="flex items-center gap-2">
-                      <div className="flex-1 bg-gray-200 rounded-full h-3">
-                        <div
-                          className="bg-green-500 h-3 rounded-full"
-                          style={{ width: `${Math.min(platform.engagementRate * 10, 100)}%` }}
-                        ></div>
-                      </div>
-                      <span className="text-lg font-bold text-green-600">
-                        {platform.engagementRate}%
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        {/* Audience Demographics */}
-        {creator.audience && (
-          <Card className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Audience Demographics</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {/* Top Country */}
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Top Country</h3>
-                <div className="flex items-center gap-2">
-                  <span className="text-3xl">🌍</span>
-                  <span className="text-lg text-gray-700">{creator.audience.topCountry}</span>
-                </div>
-              </div>
-
-              {/* Age Brackets */}
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Age Distribution</h3>
-                <div className="space-y-2">
-                  {creator.audience.ageBrackets && Object.entries(creator.audience.ageBrackets).map(([range, percentage]) => (
-                    <div key={range} className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600">{range}</span>
-                      <span className="font-semibold text-gray-900">{percentage}%</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Gender Split */}
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Gender Split</h3>
-                {creator.audience.genderSplit && (
-                  <div className="space-y-3">
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="text-gray-600">Male</span>
-                        <span className="font-semibold text-gray-900">{creator.audience.genderSplit.male}%</span>
-                      </div>
-                      <div className="bg-gray-200 rounded-full h-2">
-                        <div
-                          className="bg-blue-500 h-2 rounded-full"
-                          style={{ width: `${creator.audience.genderSplit.male}%` }}
-                        ></div>
+        {/* Tab Content */}
+        {selectedTab === 'overview' && (
+          <>
+            {/* Platform Analytics */}
+            <Card className="mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Platform Analytics</h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                {creator.platforms?.map((platform, index) => (
+                  <div key={index} className="bg-gray-50 rounded-lg p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-3xl">{getPlatformIcon(platform.name)}</span>
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-900 capitalize">{platform.name}</h3>
+                        <p className={`text-sm text-gray-600 ${role === 'brand' && !isUnlocked ? 'blur-contact' : ''}`}>
+                          {platform.handle}
+                        </p>
                       </div>
                     </div>
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="text-gray-600">Female</span>
-                        <span className="font-semibold text-gray-900">{creator.audience.genderSplit.female}%</span>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-sm text-gray-600 mb-1">Followers</p>
+                        <p className="text-2xl font-bold text-gray-900">
+                          {(platform.followers / 1000).toFixed(1)}K
+                        </p>
                       </div>
-                      <div className="bg-gray-200 rounded-full h-2">
-                        <div
-                          className="bg-pink-500 h-2 rounded-full"
-                          style={{ width: `${creator.audience.genderSplit.female}%` }}
-                        ></div>
+                      <div>
+                        <p className="text-sm text-gray-600 mb-1">Avg Views</p>
+                        <p className="text-2xl font-bold text-gray-900">
+                          {(platform.avgViews / 1000).toFixed(1)}K
+                        </p>
+                      </div>
+                      <div className="col-span-2">
+                        <p className="text-sm text-gray-600 mb-1">Engagement Rate</p>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 bg-gray-200 rounded-full h-3">
+                            <div
+                              className="bg-green-500 h-3 rounded-full"
+                              style={{ width: `${Math.min(platform.engagementRate * 10, 100)}%` }}
+                            ></div>
+                          </div>
+                          <span className="text-lg font-bold text-green-600">
+                            {platform.engagementRate}%
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                )}
+                ))}
               </div>
+            </Card>
+
+            {/* Skills & Rate */}
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              {creator.skills && creator.skills.length > 0 && (
+                <Card>
+                  <h3 className="font-semibold text-gray-900 mb-3">Skills</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {creator.skills.map((skill, idx) => (
+                      <Badge key={idx} variant="outline">{skill}</Badge>
+                    ))}
+                  </div>
+                </Card>
+              )}
+              {creator.rate && (
+                <Card>
+                  <h3 className="font-semibold text-gray-900 mb-3">Collaboration Rate</h3>
+                  <p className="text-3xl font-bold text-blue-600">${creator.rate}</p>
+                </Card>
+              )}
             </div>
+
+            {/* Audience Demographics */}
+            {creator.audience && (
+              <Card className="mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Audience Demographics</h2>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {/* Top Country */}
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-3">Top Country</h3>
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg font-semibold text-gray-600">Region:</span>
+                      <span className="text-lg text-gray-700">{creator.audience.topCountry}</span>
+                    </div>
+                  </div>
+
+                  {/* Age Brackets */}
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-3">Age Distribution</h3>
+                    <div className="space-y-2">
+                      {creator.audience.ageBrackets && Object.entries(creator.audience.ageBrackets).map(([range, percentage]) => (
+                        <div key={range} className="flex items-center justify-between text-sm">
+                          <span className="text-gray-600">{range}</span>
+                          <span className="font-semibold text-gray-900">{percentage}%</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Gender Split */}
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-3">Gender Split</h3>
+                    {creator.audience.genderSplit && (
+                      <div className="space-y-3">
+                        <div>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span className="text-gray-600">Male</span>
+                            <span className="font-semibold text-gray-900">{creator.audience.genderSplit.male}%</span>
+                          </div>
+                          <div className="bg-gray-200 rounded-full h-2">
+                            <div
+                              className="bg-blue-500 h-2 rounded-full"
+                              style={{ width: `${creator.audience.genderSplit.male}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span className="text-gray-600">Female</span>
+                            <span className="font-semibold text-gray-900">{creator.audience.genderSplit.female}%</span>
+                          </div>
+                          <div className="bg-gray-200 rounded-full h-2">
+                            <div
+                              className="bg-pink-500 h-2 rounded-full"
+                              style={{ width: `${creator.audience.genderSplit.female}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </Card>
+            )}
+          </>
+        )}
+
+        {selectedTab === 'platforms' && (
+          <Card>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Platform Analytics</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {creator.platforms?.map((platform, index) => (
+                <div key={index} className="bg-gray-50 rounded-lg p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-3xl">{getPlatformIcon(platform.name)}</span>
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 capitalize">{platform.name}</h3>
+                      <p className={`text-sm text-gray-600 ${role === 'brand' && !isUnlocked ? 'blur-contact' : ''}`}>
+                        {platform.handle}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-sm text-gray-600 mb-1">Followers</p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {(platform.followers / 1000).toFixed(1)}K
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-600 mb-1">Avg Views</p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {(platform.avgViews / 1000).toFixed(1)}K
+                      </p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-sm text-gray-600 mb-1">Engagement Rate</p>
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 bg-gray-200 rounded-full h-3">
+                          <div
+                            className="bg-green-500 h-3 rounded-full"
+                            style={{ width: `${Math.min(platform.engagementRate * 10, 100)}%` }}
+                          ></div>
+                        </div>
+                        <span className="text-lg font-bold text-green-600">
+                          {platform.engagementRate}%
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        )}
+
+        {selectedTab === 'portfolio' && (
+          <Card>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Portfolio</h2>
+            {creator.portfolio && creator.portfolio.length > 0 ? (
+              <div className="grid md:grid-cols-2 gap-6">
+                {creator.portfolio.map((item, index) => (
+                  <div key={index} className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition">
+                    {item.imageUrl && (
+                      <img src={item.imageUrl} alt={item.title} className="w-full h-48 object-cover" />
+                    )}
+                    <div className="p-4">
+                      <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                      <p className="text-sm text-gray-600 mb-3">{item.description}</p>
+                      <div className="space-y-1 text-sm">
+                        {item.brandName && <p><span className="font-medium">Brand:</span> {item.brandName}</p>}
+                        {item.campaignType && <p><span className="font-medium">Type:</span> {item.campaignType}</p>}
+                        {item.results && <p><span className="font-medium">Results:</span> {item.results}</p>}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-gray-600 py-8">No portfolio items yet</p>
+            )}
+          </Card>
+        )}
+
+        {selectedTab === 'testimonials' && (
+          <Card>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Testimonials</h2>
+            {creator.testimonials && creator.testimonials.length > 0 ? (
+              <div className="space-y-4">
+                {creator.testimonials.map((testimonial, index) => (
+                  <div key={index} className="border-l-4 border-yellow-400 bg-gray-50 p-4 rounded">
+                    <div className="flex justify-between items-start mb-2">
+                      <p className="font-semibold text-gray-900">{testimonial.brandName}</p>
+                      <span className="text-gray-900 font-semibold">{testimonial.rating}/5</span>
+                    </div>
+                    {testimonial.comment && (
+                      <p className="text-gray-700 italic">"{testimonial.comment}"</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-gray-600 py-8">No testimonials yet</p>
+            )}
           </Card>
         )}
 
         {/* Contact Information (Only for brands) */}
         {role === 'brand' && (
-          <Card>
+          <Card className="mt-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
-            
+
             {isUnlocked ? (
               <div className="bg-green-50 border border-green-200 rounded-lg p-6">
                 <div className="flex items-center gap-2 text-green-700 mb-4">
@@ -330,18 +502,18 @@ const CreatorProfile = () => {
                       Get full access to this creator's email and phone number
                     </p>
                   </div>
-                  <div className="text-4xl">🔒</div>
+                  <div className="text-xl font-bold text-gray-600">Locked</div>
                 </div>
 
                 <div className="space-y-2 mb-6">
                   <div className="flex items-center gap-3 text-gray-700">
                     <div className="blur-contact select-none">
-                      📧 {creator.email?.substring(0, 3)}*****@*****.com
+                      Email: {creator.email?.substring(0, 3)}*****@*****.com
                     </div>
                   </div>
                   <div className="flex items-center gap-3 text-gray-700">
                     <div className="blur-contact select-none">
-                      📞 +91-**********
+                      Phone: +91-**********
                     </div>
                   </div>
                 </div>

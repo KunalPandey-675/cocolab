@@ -49,7 +49,7 @@ const BoostModal = () => {
           <div className="mb-6">
             <div className="bg-gradient-to-r from-purple-100 to-pink-100 p-6 rounded-lg mb-4">
               <h4 className="text-lg font-semibold text-purple-900 mb-2">
-                🚀 Get Maximum Visibility
+                Get Maximum Visibility
               </h4>
               <p className="text-purple-700 text-sm">
                 Boost your profile to appear at the top of brand searches and get 3x more profile views!
