@@ -15,11 +15,15 @@ const brandSchema = new mongoose.Schema({
     unique: true
   },
   password: String,
-  industry: String,
+  industry: [String],
   location: String,
   credits: {
     type: Number,
     default: 10
+  },
+  isAgency: {
+    type: Boolean,
+    default: false
   },
   unlockedCreators: [{
     type: mongoose.Schema.Types.ObjectId,

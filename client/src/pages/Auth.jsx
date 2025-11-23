@@ -19,13 +19,14 @@ const Auth = () => {
     name: '',
     email: '',
     password: '',
-    industry: '',
+    industry: [],
     location: '',
     niche: [],
     bio: '',
     phone: '',
     instagramLink: '',
-    youtubeLink: ''
+    youtubeLink: '',
+    isAgency: false
   });
 
   const handleSubmit = async (e) => {
@@ -42,7 +43,8 @@ const Auth = () => {
           password: formData.password,
           ...(role === 'brand' ? {
             industry: formData.industry,
-            location: formData.location
+            location: formData.location,
+            isAgency: formData.isAgency
           } : {
             niche: formData.niche,
             location: formData.location,
@@ -91,6 +93,20 @@ const Auth = () => {
     setFormData({
       ...formData,
       niche: selected
+    });
+  };
+
+  const handleIndustryChange = (e) => {
+    const options = e.target.options;
+    const selected = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selected.push(options[i].value);
+      }
+    }
+    setFormData({
+      ...formData,
+      industry: selected
     });
   };
 
@@ -211,18 +227,48 @@ const Auth = () => {
 
             {isSignup && role === 'brand' && (
               <>
+                <div className="flex items-center gap-2 p-3 bg-blue-50 rounded-md">
+                  <input
+                    type="checkbox"
+                    name="isAgency"
+                    id="isAgency"
+                    checked={formData.isAgency}
+                    onChange={(e) => setFormData({ ...formData, isAgency: e.target.checked })}
+                    className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                  />
+                  <label htmlFor="isAgency" className="text-sm font-medium text-gray-700 cursor-pointer">
+                    This is an agency account
+                  </label>
+                </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Industry
                   </label>
-                  <input
-                    type="text"
-                    name="industry"
-                    value={formData.industry}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="e.g., Fashion, Tech, Food"
-                  />
+                  <div className="grid grid-cols-2 gap-2 p-3 border border-gray-300 rounded-md max-h-48 overflow-y-auto">
+                    {['Fashion', 'Technology', 'Food & Beverage', 'Beauty & Cosmetics', 'Fitness & Wellness', 'Travel & Hospitality', 'Electronics', 'Gaming', 'Education', 'Finance'].map((ind) => (
+                      <label key={ind} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                        <input
+                          type="checkbox"
+                          value={ind}
+                          checked={formData.industry.includes(ind)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setFormData({ ...formData, industry: [...formData.industry, ind] });
+                            } else {
+                              setFormData({ ...formData, industry: formData.industry.filter(i => i !== ind) });
+                            }
+                          }}
+                          className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                        />
+                        <span className="text-sm text-gray-700">{ind}</span>
+                      </label>
+                    ))}
+                  </div>
+                  {formData.industry.length > 0 && (
+                    <p className="text-xs text-gray-600 mt-1">
+                      Selected: {formData.industry.join(', ')}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -243,25 +289,29 @@ const Auth = () => {
             {isSignup && role === 'creator' && (
               <>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Niches (Hold Ctrl/Cmd to select multiple)
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Niches
                   </label>
-                  <select
-                    name="niche"
-                    multiple
-                    value={formData.niche}
-                    onChange={handleNicheChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    size="5"
-                  >
-                    <option value="Tech">Tech</option>
-                    <option value="Fashion">Fashion</option>
-                    <option value="Fitness">Fitness</option>
-                    <option value="Food">Food</option>
-                    <option value="Travel">Travel</option>
-                    <option value="Lifestyle">Lifestyle</option>
-                    <option value="Gaming">Gaming</option>
-                  </select>
+                  <div className="grid grid-cols-2 gap-2 p-3 border border-gray-300 rounded-md">
+                    {['Tech', 'Fashion', 'Fitness', 'Food', 'Travel', 'Lifestyle', 'Gaming', 'Beauty', 'Education', 'Finance'].map((n) => (
+                      <label key={n} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                        <input
+                          type="checkbox"
+                          value={n}
+                          checked={formData.niche.includes(n)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setFormData({ ...formData, niche: [...formData.niche, n] });
+                            } else {
+                              setFormData({ ...formData, niche: formData.niche.filter(i => i !== n) });
+                            }
+                          }}
+                          className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                        />
+                        <span className="text-sm text-gray-700">{n}</span>
+                      </label>
+                    ))}
+                  </div>
                   {formData.niche.length > 0 && (
                     <p className="text-xs text-gray-600 mt-1">
                       Selected: {formData.niche.join(', ')}
