@@ -9,7 +9,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg"></div>
+            <div className=" rounded-lg"><img src='/logo.png' className='w-16 h-15 '></img></div>
             <span className="text-xl font-bold text-gray-900">Cocolab</span>
           </Link>
 
