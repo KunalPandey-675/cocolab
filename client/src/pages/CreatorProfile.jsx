@@ -123,13 +123,21 @@ const CreatorProfile = () => {
                   {creator.name.charAt(0)}
                 </div>
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-900 mb-2">{creator.name}</h1>
+                  <h1 className={`text-3xl font-bold text-gray-900 mb-2 ${role === 'brand' && !isUnlocked ? 'blur-contact' : ''}`}>
+                    {creator.name}
+                  </h1>
                   <p className="text-gray-600">{creator.location}</p>
                 </div>
               </div>
 
-              <div className="flex gap-2 mb-4">
-                <Badge variant="primary">{creator.niche}</Badge>
+              <div className="flex gap-2 mb-4 flex-wrap">
+                {Array.isArray(creator.niche) ? (
+                  creator.niche.map((n, idx) => (
+                    <Badge key={idx} variant="primary">{n}</Badge>
+                  ))
+                ) : (
+                  <Badge variant="primary">{creator.niche}</Badge>
+                )}
                 <Badge variant={creator.tier === 'Established' ? 'success' : creator.tier === 'Growth' ? 'primary' : 'warning'}>
                   {creator.tier} Creator
                 </Badge>
@@ -137,7 +145,33 @@ const CreatorProfile = () => {
               </div>
 
               {creator.bio && (
-                <p className="text-gray-700 leading-relaxed">{creator.bio}</p>
+                <p className="text-gray-700 leading-relaxed mb-4">{creator.bio}</p>
+              )}
+
+              {/* Social Media Links */}
+              {(creator.instagramLink || creator.youtubeLink) && (
+                <div className="flex gap-3">
+                  {creator.instagramLink && (
+                    <a
+                      href={creator.instagramLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md hover:from-purple-600 hover:to-pink-600 transition"
+                    >
+                      📷 Instagram
+                    </a>
+                  )}
+                  {creator.youtubeLink && (
+                    <a
+                      href={creator.youtubeLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+                    >
+                      ▶️ YouTube
+                    </a>
+                  )}
+                </div>
               )}
             </div>
           </div>
@@ -153,7 +187,9 @@ const CreatorProfile = () => {
                   <span className="text-3xl">{getPlatformIcon(platform.name)}</span>
                   <div>
                     <h3 className="text-lg font-bold text-gray-900 capitalize">{platform.name}</h3>
-                    <p className="text-sm text-gray-600">{platform.handle}</p>
+                    <p className={`text-sm text-gray-600 ${role === 'brand' && !isUnlocked ? 'blur-contact' : ''}`}>
+                      {platform.handle}
+                    </p>
                   </div>
                 </div>
 

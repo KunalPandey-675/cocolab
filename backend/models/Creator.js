@@ -28,9 +28,11 @@ const creatorSchema = new mongoose.Schema({
   },
   password: String,
   phone: String,
-  niche: String,
+  niche: [String],
   location: String,
   bio: String,
+  instagramLink: String,
+  youtubeLink: String,
   platforms: [platformSchema],
   audience: {
     topCountry: String,

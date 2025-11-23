@@ -21,9 +21,11 @@ const Auth = () => {
     password: '',
     industry: '',
     location: '',
-    niche: '',
+    niche: [],
     bio: '',
-    phone: ''
+    phone: '',
+    instagramLink: '',
+    youtubeLink: ''
   });
 
   const handleSubmit = async (e) => {
@@ -45,7 +47,9 @@ const Auth = () => {
             niche: formData.niche,
             location: formData.location,
             bio: formData.bio,
-            phone: formData.phone
+            phone: formData.phone,
+            instagramLink: formData.instagramLink,
+            youtubeLink: formData.youtubeLink
           })
         };
 
@@ -73,6 +77,20 @@ const Auth = () => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
+    });
+  };
+
+  const handleNicheChange = (e) => {
+    const options = e.target.options;
+    const selected = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selected.push(options[i].value);
+      }
+    }
+    setFormData({
+      ...formData,
+      niche: selected
     });
   };
 
@@ -226,15 +244,16 @@ const Auth = () => {
               <>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Niche
+                    Niches (Hold Ctrl/Cmd to select multiple)
                   </label>
                   <select
                     name="niche"
+                    multiple
                     value={formData.niche}
-                    onChange={handleChange}
+                    onChange={handleNicheChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    size="5"
                   >
-                    <option value="">Select a niche</option>
                     <option value="Tech">Tech</option>
                     <option value="Fashion">Fashion</option>
                     <option value="Fitness">Fitness</option>
@@ -243,6 +262,11 @@ const Auth = () => {
                     <option value="Lifestyle">Lifestyle</option>
                     <option value="Gaming">Gaming</option>
                   </select>
+                  {formData.niche.length > 0 && (
+                    <p className="text-xs text-gray-600 mt-1">
+                      Selected: {formData.niche.join(', ')}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -268,6 +292,32 @@ const Auth = () => {
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="+91-9876543210"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Instagram Profile Link (Optional)
+                  </label>
+                  <input
+                    type="url"
+                    name="instagramLink"
+                    value={formData.instagramLink}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="https://instagram.com/yourhandle"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    YouTube Channel Link (Optional)
+                  </label>
+                  <input
+                    type="url"
+                    name="youtubeLink"
+                    value={formData.youtubeLink}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="https://youtube.com/@yourchannel"
                   />
                 </div>
                 <div>

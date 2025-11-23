@@ -26,7 +26,9 @@ const CreatorCard = ({ creator, brandId, isUnlocked }) => {
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h3 className="text-xl font-bold text-gray-900 mb-1">{creator.name}</h3>
+          <h3 className={`text-xl font-bold mb-1 ${!isUnlocked ? 'blur-contact text-gray-900' : 'text-gray-900'}`}>
+            {isUnlocked ? creator.name : creator.name.split(' ')[0] + ' ' + creator.name.split(' ').slice(1).map(() => '***').join(' ')}
+          </h3>
           <p className="text-sm text-gray-600">{creator.location}</p>
         </div>
         {creator.isBoosted && (
@@ -35,8 +37,14 @@ const CreatorCard = ({ creator, brandId, isUnlocked }) => {
       </div>
 
       {/* Niche & Tier */}
-      <div className="flex gap-2 mb-4">
-        <Badge variant="primary">{creator.niche}</Badge>
+      <div className="flex gap-2 mb-4 flex-wrap">
+        {Array.isArray(creator.niche) ? (
+          creator.niche.map((n, idx) => (
+            <Badge key={idx} variant="primary">{n}</Badge>
+          ))
+        ) : (
+          <Badge variant="primary">{creator.niche}</Badge>
+        )}
         <Badge variant={creator.tier === 'Established' ? 'success' : creator.tier === 'Growth' ? 'primary' : 'warning'}>
           {creator.tier}
         </Badge>

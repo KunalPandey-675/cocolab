@@ -5,9 +5,11 @@
     "email": "aarav.mehta.influencer@example.com",
     "password": "password123",
     "phone": "+91-9876543210",
-    "niche": "Tech",
+    "niche": ["Tech", "Gadgets"],
     "location": "Bengaluru, India",
     "bio": "Tech content creator helping Gen-Z discover gadgets, apps, and productivity hacks.",
+    "instagramLink": "https://instagram.com/aarav.tech",
+    "youtubeLink": "https://youtube.com/@aaravtech",
     "platforms": [
       {
         "name": "instagram",
@@ -46,9 +48,11 @@
     "email": "sara.khan.style@example.com",
     "password": "password123",
     "phone": "+91-9123456780",
-    "niche": "Fashion",
+    "niche": ["Fashion", "Lifestyle"],
     "location": "Mumbai, India",
     "bio": "Affordable fashion, styling tips, and streetwear inspiration for students.",
+    "instagramLink": "https://instagram.com/sara.styles",
+    "youtubeLink": "",
     "platforms": [
       {
         "name": "instagram",
@@ -87,9 +91,11 @@
     "email": "rohan.fitness@example.com",
     "password": "password123",
     "phone": "+91-9012345678",
-    "niche": "Fitness",
+    "niche": ["Fitness", "Health"],
     "location": "New Delhi, India",
     "bio": "Weekend warrior helping busy professionals stay fit with 20-minute home workouts.",
+    "instagramLink": "https://instagram.com/rohan.fit",
+    "youtubeLink": "https://youtube.com/@rohanfit",
     "platforms": [
       {
         "name": "instagram",
@@ -128,9 +134,11 @@
     "email": "ananya.foodie@example.com",
     "password": "password123",
     "phone": "+91-9988776655",
-    "niche": "Food",
+    "niche": ["Food", "Travel"],
     "location": "Delhi NCR, India",
     "bio": "Exploring underrated food spots and budget-friendly eats across NCR.",
+    "instagramLink": "https://instagram.com/ananya.eats",
+    "youtubeLink": "",
     "platforms": [
       {
         "name": "instagram",
@@ -169,9 +177,11 @@
     "email": "kabir.travel@example.com",
     "password": "password123",
     "phone": "+91-9090909090",
-    "niche": "Travel",
+    "niche": ["Travel", "Adventure"],
     "location": "Jaipur, India",
     "bio": "Backpacking India on a budget and documenting offbeat routes.",
+    "instagramLink": "https://instagram.com/kabir.travels",
+    "youtubeLink": "https://youtube.com/@kabirtravels",
     "platforms": [
       {
         "name": "instagram",

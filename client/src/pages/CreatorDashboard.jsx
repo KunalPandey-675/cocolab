@@ -145,7 +145,12 @@ const CreatorDashboard = () => {
         {/* Recent Brand Views */}
         {viewStats?.viewHistory && viewStats.viewHistory.length > 0 && (
           <Card>
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Recent Brand Views</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold text-gray-900">Recent Brand Views</h3>
+              {!creator?.isBoosted && (
+                <Badge variant="warning">🔒 Boost to unlock</Badge>
+              )}
+            </div>
             <div className="space-y-3">
               {viewStats.viewHistory.map((view, index) => (
                 <div
@@ -155,12 +160,16 @@ const CreatorDashboard = () => {
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                       <span className="text-blue-600 font-semibold">
-                        {view.brandId?.name?.charAt(0) || 'B'}
+                        {creator?.isBoosted ? (view.brandId?.name?.charAt(0) || 'B') : '?'}
                       </span>
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900">{view.brandId?.name || 'Anonymous Brand'}</p>
-                      <p className="text-sm text-gray-600">{view.brandId?.industry || 'Industry not specified'}</p>
+                      <p className={`font-medium ${!creator?.isBoosted ? 'blur-contact' : 'text-gray-900'}`}>
+                        {creator?.isBoosted ? (view.brandId?.name || 'Anonymous Brand') : 'Brand Name Hidden'}
+                      </p>
+                      <p className={`text-sm ${!creator?.isBoosted ? 'blur-contact' : 'text-gray-600'}`}>
+                        {creator?.isBoosted ? (view.brandId?.industry || 'Industry not specified') : 'Industry Hidden'}
+                      </p>
                     </div>
                   </div>
                   <p className="text-sm text-gray-500">
@@ -169,6 +178,16 @@ const CreatorDashboard = () => {
                 </div>
               ))}
             </div>
+            {!creator?.isBoosted && (
+              <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p className="text-sm text-yellow-800">
+                  <span className="font-semibold">💡 Boost your profile</span> to see which brands are viewing your profile and get priority placement in search results.
+                </p>
+                <Button onClick={openBoostModal} size="sm" className="mt-2">
+                  Boost Now
+                </Button>
+              </div>
+            )}
           </Card>
         )}
       </div>
